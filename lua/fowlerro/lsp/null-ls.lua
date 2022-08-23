@@ -14,9 +14,11 @@ null_ls.setup {
     formatting.prettierd,
     formatting.eslint_d,
     formatting.black,
-    diagnostics.eslint_d,
+    diagnostics.eslint_d.with({
+      extra_args = { "--rule 'quotes: [error, double]'" }
+    }),
     diagnostics.flake8.with({ extra_args = {
-      "--max-line-lengt=120"
+      "--max-line-length=120"
     }
     })
     

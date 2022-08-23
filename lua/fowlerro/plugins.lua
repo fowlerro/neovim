@@ -93,6 +93,11 @@ return packer.startup(function(use)
 
   use "windwp/nvim-ts-autotag"
 
+
+  -- Text Objects
+  use "michaeljsmith/vim-indent-object"
+  use "tpope/vim-surround"
+
   if PACKER_BOOTSTRAP then
     require("packer").sync()
   end

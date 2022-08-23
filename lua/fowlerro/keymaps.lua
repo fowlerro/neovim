@@ -37,11 +37,6 @@ keymap("n", "<leader>t", "<cmd>Telescope live_grep<CR>", options);
 keymap("n", "<S-l>", ":bnext<CR>", options)
 keymap("n", "<S-h>", ":bprevious<CR>", options)
 
-
--- Quick ESC
-keymap("i", "ii", "<ESC>", options)
-
-
 -- Stay in indent mode
 keymap("v", "<", "<gv", options)
 keymap("v", ">", ">gv", options)
