@@ -1,11 +1,16 @@
-local status_ok, telescope = pcall(require, "telescope")
-if not status_ok then
-  return
-end
+local telescope = require('telescope')
 
 telescope.load_extension('media_files')
 
 local actions = require "telescope.actions"
+
+local telescope_find_files = function(opts)
+  opts = opts or {}
+  if vim.fn.filereadable(".gitignore") == 1 and vim.fn.isdirectory(".git/") == 0 then
+    opts.find_command = { "rg", "--files", "--ignore-file", ".gitignore" }
+  end
+  require('telescope.builtin').find_files(opts);
+end
 
 telescope.setup({
   defaults = {
@@ -102,3 +107,7 @@ telescope.setup({
     -- please take a look at the readme of the extension you want to configure
   },
 })
+
+return {
+  telescope_find_files = telescope_find_files
+}

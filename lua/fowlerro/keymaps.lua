@@ -30,7 +30,7 @@ keymap("n", "<C-l>", "<C-w>l", options)
 keymap("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", options)
 
 -- Telescope
-keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<CR>", options)
+keymap("n", "<leader>f", "<cmd>lua require'fowlerro/telescope'.telescope_find_files(require('telescope.themes').get_dropdown({ previewer = false }))<CR>", options)
 keymap("n", "<leader>t", "<cmd>Telescope live_grep<CR>", options);
 
 -- Navigate buffers

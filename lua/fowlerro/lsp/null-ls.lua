@@ -1,18 +1,20 @@
-local null_ls_status_ok, null_ls = pcall(require, "null-ls")
-if not null_ls_status_ok then
-  return
-end
+local null_ls = require("null-ls")
 
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
 local formatting = null_ls.builtins.formatting
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
 local diagnostics = null_ls.builtins.diagnostics
 
-null_ls.setup {
-  debug = false,
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+null_ls.setup({
+  debug = true,
+
   sources = {
-    formatting.prettierd,
-    formatting.eslint_d,
+    formatting.prettierd.with({
+      filetypes = { 'html', 'json' ,'css', 'javascript', 'typescript', 'typescriptreact', 'javascriptreact' },
+    }),
+    -- formatting.eslint_d,
     formatting.black,
     diagnostics.eslint_d.with({
       extra_args = { "--rule 'quotes: [error, double]'" }
@@ -21,7 +23,6 @@ null_ls.setup {
       "--max-line-length=120"
     }
     })
-    
   },
   on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
@@ -31,9 +32,10 @@ null_ls.setup {
                 buffer = bufnr,
                 callback = function()
                     -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-                    vim.lsp.buf.formatting_sync()
+                    vim.lsp.buf.format({ bufnr = bufnr })
+                    -- vim.lsp.buf.formatting_sync(nil, 10000)
                 end,
             })
         end
     end,
-}
+})
